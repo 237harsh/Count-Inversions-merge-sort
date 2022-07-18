@@ -1,0 +1,55 @@
+ long long  c=0; //take a global variable to count inversions
+     void merge(long long arr[] , long long l, long long m, long long r)
+    {
+        long long tmp[r-l+1];//create a dumy array
+         
+         long long i = l;
+         long long j = m+1;
+         long long k = 0;
+         while(i<=m && j<=r)//valid conditions
+         {
+             if(arr[i]<=arr[j])
+                tmp[k++] = arr[i++];
+             else
+             {
+             //if first pair is greater than second this is where we count inversions; 
+                 c+=m-i+1;
+                tmp[k++] = arr[j++];
+             }
+         }
+         //cheak if some elemnts are left 
+         //if j is exausted 
+         while(i<=m) tmp[k++] = arr[i++];
+         
+         //if i is exausted
+         while(j<=r) tmp[k++] = arr[j++];
+         
+        long long c=0;
+         for(i =l; i <=r; i++)
+            arr[i] = tmp[c++];
+         
+    }
+    void mergeSort(long long arr[], int l, int r)
+    {
+         if(l<r)
+         {
+            long long mid = l + (r-l)/2;
+             mergeSort(arr,l,mid);
+             mergeSort(arr,mid+1,r);
+             merge(arr,l,mid,r);
+             
+         }
+    }
+    long long int inversionCount(long long arr[], long long n)
+    {
+            long long l=0, r=n-1;
+            mergeSort(arr,l,r);
+            return c;
+    }
+    
+    
+
+};
+
+
+https://practice.geeksforgeeks.org/problems/inversion-of-array-1587115620/1?page=1&category[]=Sorting&sortBy=submissions
